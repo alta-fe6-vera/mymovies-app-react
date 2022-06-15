@@ -6,6 +6,7 @@ import Layout from "../components/Layout";
 
 import CinemaLoading from "../assets/animations/loading_anm.json";
 import "../styles/App.css";
+import axios from "axios";
 
 class Homepage extends Component {
   state = {
@@ -22,56 +23,21 @@ class Homepage extends Component {
   handleClick(item) {
     const temp = this.state.dataMovie.slice();
     temp.push(item);
-    this.setState({ dataMovie: temp, title: item.title });
+    this.setState({ dataMovie: temp, title: item.title }, () => {
+      this.fetchData();
+    });
   }
 
   // Simulasi panggil api
   fetchData() {
-    setTimeout(() => {
-      const dummy = [
-        {
-          id: 1,
-          title: "Title 1",
-          content: "Content 1",
-          image: "https://i.pinimg.com/736x/0a/08/55/0a08558452e501da0404d50429952e2e.jpg",
-        },
-        {
-          id: 2,
-          title: "Title 2",
-          content: "Content 2",
-          image: "https://i.pinimg.com/736x/0a/08/55/0a08558452e501da0404d50429952e2e.jpg",
-        },
-        {
-          id: 3,
-          title: "Title 3",
-          content: "Content 3",
-          image: "https://i.pinimg.com/736x/0a/08/55/0a08558452e501da0404d50429952e2e.jpg",
-        },
-        {
-          id: 4,
-          title: "Title 4",
-          content: "Content 4",
-          image: "https://i.pinimg.com/736x/0a/08/55/0a08558452e501da0404d50429952e2e.jpg",
-        },
-        {
-          id: 5,
-          title: "Title 5",
-          content: "Content 5",
-          image: "https://i.pinimg.com/736x/0a/08/55/0a08558452e501da0404d50429952e2e.jpg",
-        },
-        {
-          id: 6,
-          title: "Title 6",
-          content: "Content 6",
-          image: "https://i.pinimg.com/736x/0a/08/55/0a08558452e501da0404d50429952e2e.jpg",
-        },
-      ];
-      this.setState({ data: dummy }, () =>
-        this.setState({
-          loading: false,
-        })
-      );
-    }, 3000);
+    axios
+      .get("https://api.themoviedb.org/3/movie/now_playing?api_key=29737ad1a86c54f369b7f540ef2296fa&language=en-US&page=1")
+      .then((res) => {
+        const { results } = res.data;
+        this.setState({ data: results });
+      })
+      .catch((err) => console.log(err))
+      .finally(() => this.setState({ loading: false }));
   }
 
   render() {
@@ -84,16 +50,16 @@ class Homepage extends Component {
     } else {
       return (
         <Layout title={this.state.title}>
-          <div className="pl-20 pr-20">
-            <div className="grid grid-flow-row auto-rows-max grid-cols-2 md:grid-cols-4 lg:grid-cols-5 m-2 gap-3">
+          <div className="pl-0 pr-0 sm:pl-20 sm:pr-20 mt-10">
+            <div className="grid grid-flow-row auto-rows-max grid-cols-2 md:grid-cols-3 lg:grid-cols-4 m-2 gap-4">
               {this.state.data.map((item) => (
-                <Card key={item.id} titleItem={item.title} contentItem={item.content} imageItem={item.image} onClickItem={() => this.handleClick(item)} />
+                <Card key={item.id} titleItem={item.title} contentItem={item.content} imageItem={item.poster_path} onClickItem={() => this.handleClick(item)} />
               ))}
             </div>
             <h1>MY FAVOURITE MOVIES</h1>
-            <div className="grid grid-flow-row auto-rows-max grid-cols-2 md:grid-cols-4 lg:grid-cols-5 m-2 gap-3">
+            <div className="grid grid-flow-row auto-rows-max grid-cols-2 md:grid-cols-3 lg:grid-cols-4 m-2 gap-4">
               {this.state.dataMovie.map((item) => (
-                <Card2 key={item.id} titleItem={item.title} contentItem={item.content} imageItem={item.image} onClickItem={() => this.handleClick(item)} />
+                <Card2 key={item.id} titleItem={item.title} contentItem={item.content} imageItem={item.poster_path} onClickItem={() => this.handleClick(item)} />
               ))}
             </div>
           </div>
