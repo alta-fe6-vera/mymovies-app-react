@@ -1,26 +1,29 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
-import dianying from "../assets/image/dianying_png.png";
+import qu from "../assets/image/movie_qu_red.png";
 
 class CustomHeader extends Component {
   render() {
     return (
-      // <nav className="sticky top-0 w-full flex flex-col sm:flex-row sm:pl-20 sm:pr-20 px-2 py-2.5 bg-white text-orange-900 drop-shadow">
-      //   <img src={dianying} className="w-16" alt="Dianying - Movies" />
-      //   <p className="sm:ml-4">{this.props.title}</p>
-      // </nav>
-      <nav className="sticky top-0 flex sm:justify-center space-x-4 bg-white drop-shadow pt-4 pb-4">
-        {[
-          ["Home", "/pages/Hompage"],
-          ["Favourite", "/pages/Favourites"],
-          ["Projects", "/projects"],
-          ["Reports", "/reports"],
-        ].map(([title, url]) => (
-          <a href={url} className="rounded-lg px-3 py-2 text-orange-900 font-medium hover:bg-slate-100 hover:text-slate-900">
-            {title}
-          </a>
-        ))}
+      <nav className="sticky top-0 w-full flex justify-around space-x-8 drop-shadow px-2 py-2.5 bg-white text-red-700 font-bold">
+        <div className="flex justify-center space-x-4">
+          <img src={qu} className="w-10" alt="MovieQu" />
+          <p className="self-center">MovieQu</p>
+        </div>
+        <div className="flex space-x-4">
+          <Link to="/" className="flex flex-col justify-center">
+            <p>HOME</p>
+          </Link>
+          <Link to="/movie" className="flex flex-col justify-center">
+            <p>DETAIL</p>
+          </Link>
+          {/* <Link className="flex flex-col justify-center">
+          <p>FAVOURITE</p>
+        </Link> */}
+        </div>
       </nav>
+      // </nav>
     );
   }
 }
