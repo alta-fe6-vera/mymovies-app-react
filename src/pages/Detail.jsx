@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import { withRouter } from "../utils/navigation";
@@ -6,49 +6,46 @@ import Layout from "../components/Layout";
 
 import movieQu from "../assets/image/movie_qu_red.png";
 
-class Detail extends Component {
-  state = {
-    data: [],
-    title: "WELCOME TO DIANYING",
-    dataMovie: [],
-    loading: true,
-  };
+const Detail = (props) => {
+  const [data, setData] = useState({});
+  const [loading, setLoading] = useState(true);
 
-  componentDidMount() {
-    this.fetchData();
-  }
+  useEffect(() => {
+    fetchMovieDetail();
+  }, []);
 
   // Simulasi panggil api
-  fetchData() {
-    const { movie_id } = this.props.params;
+  const fetchMovieDetail = () => {
+    const { movie_id } = props.params;
     axios
       .get(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=29737ad1a86c54f369b7f540ef2296fa&language=en-US`)
       .then((res) => {
         const { data } = res;
-        this.setState({ data });
+        setData(data);
       })
-      .catch((err) => console.log(err))
-      .finally(() => this.setState({ loading: false }));
-  }
+      .catch((err) => alert(err.toString()))
+      .finally(() => setLoading(false));
+  };
 
-  render() {
-    const { data, loading } = this.state;
-    if (loading) {
-      return (
-        <div className="flex justify-center h-full">
-          <img src={movieQu} alt="" className="w-1/4 animate-pulse" />
-        </div>
-      );
-    } else {
-      return (
-        <Layout title={"Home"}>
-          <div className="mt-10">
-            <p className="text-4xl mb-4">Detail of {data.title} Movie</p>
-            <div className="p-3 grow flex shadow-xl bg-red-700 w-1/2 rounded-md">
+  if (loading) {
+    return (
+      <div className="flex flex-col justify-center h-full">
+        <img src={movieQu} alt="" className="w-1/4 animate-pulse" />
+      </div>
+    );
+  } else {
+    return (
+      <Layout title={"Home"}>
+        <div className="mt-10 ml-5 mr-5">
+          <div className="flex justify-center">
+            <p className="text-2xl sm:text-4xl mb-4">Detail of {data.title} Movie</p>
+          </div>
+          <div className="flex justify-center">
+            <div className="p-3 flex flex-col sm:flex-row shadow-xl bg-red-700 w-full sm:w-2/3 rounded-md">
               <div className="w-full">
-                <img className="w-full h-full" src={this.props.imageItem ? `https://image.tmdb.org/t/p/w500${this.props.imageItem}` : "https://via.placeholder.com/500x750?text=No+Image"} alt={this.props.imageItem} />
+                <img className="w-full h-full" src={`https://image.tmdb.org/t/p/w500${data.poster_path}`} alt={data.poster_path} />
               </div>
-              <div className="ml-4 text-base text-red-50 p-4">
+              <div className="ml-4 text-base text-red-50 sm:p-4">
                 <div>Title: {data.title}</div>
                 <div>
                   Genres:
@@ -62,10 +59,10 @@ class Detail extends Component {
               </div>
             </div>
           </div>
-        </Layout>
-      );
-    }
+        </div>
+      </Layout>
+    );
   }
-}
+};
 
 export default withRouter(Detail);
