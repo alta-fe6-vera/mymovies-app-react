@@ -1,10 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import { withRouter } from "../utils/navigation";
-import Layout from "../components/Layout";
+import { Layout } from "../components/Layout";
 
-import movieQu from "../assets/image/movie_qu_red.png";
+import quMovie from "../assets/image/qu_movie_red.png";
+import { FaStar } from "react-icons/fa";
 
 const Detail = (props) => {
   const [data, setData] = useState({});
@@ -30,7 +32,7 @@ const Detail = (props) => {
   if (loading) {
     return (
       <div className="flex flex-col justify-center h-full">
-        <img src={movieQu} alt="" className="w-1/4 animate-pulse" />
+        <img src={quMovie} alt="" className="w-1/4 animate-pulse" />
       </div>
     );
   } else {
@@ -47,6 +49,10 @@ const Detail = (props) => {
               </div>
               <div className="ml-4 text-base text-red-50 sm:p-4">
                 <div>Title: {data.title}</div>
+                <div>Release: {data.release_date}</div>
+                <div className="flex flex-row">
+                  Rating: {data.vote_average} <FaStar className="ml-2" />
+                </div>
                 <div>
                   Genres:
                   {data.genres.map((item) => (

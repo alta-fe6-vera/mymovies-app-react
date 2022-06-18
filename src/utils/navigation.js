@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-
-export const withRouter = (Component) => {
+const withRouter = (Component) => {
   const Wrapper = (props) => {
     const navigate = useNavigate();
     const params = useParams();
@@ -9,3 +8,4 @@ export const withRouter = (Component) => {
   };
   return Wrapper;
 };
+export { withRouter };

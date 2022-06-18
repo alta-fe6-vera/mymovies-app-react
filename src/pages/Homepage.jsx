@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import axios from "axios";
 
-import { withRouter } from "../utils/navigation";
-import { Card } from "../components/Card";
-import Layout from "../components/Layout";
+import { withRouter } from "../utils/navigation"; // Import tanpa Default
+import { Card } from "../components/Card"; // Import tanpa Default
+import { Layout } from "../components/Layout"; // Import tanpa Default
 
 import CinemaLoading from "../assets/animations/loading_anm.json";
-import movieQu from "../assets/image/movie_qu_red.png";
+// import quMovie from "../assets/image/qu_movie_red.png";
 
 import "../styles/App.css";
 
@@ -75,9 +75,9 @@ const Homepage = (props) => {
     return (
       <Layout>
         <div className=" pl-10 pr-10 sm:pl-20 sm:pr-20 mt-10">
-          <div className="flex justify-around mb-10 ">
-            <img src={movieQu} alt="" className="w-1/4" /> <h1>Movie Qu</h1>
-          </div>
+          {/* <div className="flex justify-around mb-10 ">
+            <img src={quMovie} alt="" className="w-1/4" /> <h1>QuMovie</h1>
+          </div> */}
           <div className="grid grid-flow-row auto-rows-max grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 m-2 gap-4">
             {data.map((item) => (
               <Card key={item.id} titleItem={item.title} imageItem={item.poster_path} onClickItem={() => navigate(`/movie/${item.id}`)} />

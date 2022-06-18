@@ -1,15 +1,13 @@
-import React, { Component } from "react";
-import CustomHeader from "./Header";
+import React from "react";
+import CustomHeader from "./Header"; // Import Default
 
-class Layout extends Component {
-  render() {
-    return (
-      <div className="w-full h-screen flex flex-col overflow-auto  font-sans">
-        <CustomHeader title={this.props.title} />
-        <div className="h-full w-full">{this.props.children}</div>
-      </div>
-    );
-  }
-}
+const Layout = (props) => {
+  return (
+    <div className="w-full h-screen flex flex-col overflow-auto  font-sans">
+      <CustomHeader />
+      <div className="h-full w-full">{props.children}</div>
+    </div>
+  );
+};
 
-export default Layout;
+export { Layout }; // Export tanpa Default
