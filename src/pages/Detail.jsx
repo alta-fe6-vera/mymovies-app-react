@@ -4,6 +4,7 @@ import axios from "axios";
 
 import { withRouter } from "../utils/navigation";
 import { Layout } from "../components/Layout";
+// import CustomFooter from "../components/Footer";
 
 import quMovie from "../assets/image/qu_movie_red.png";
 import { FaStar } from "react-icons/fa";
@@ -31,9 +32,11 @@ const Detail = (props) => {
 
   if (loading) {
     return (
-      <div className="flex flex-col justify-center h-full">
+      <div className="flex justify-center content-center">
+        {/* <div className=""> */}
         <img src={quMovie} alt="" className="w-1/4 animate-pulse" />
       </div>
+      // </div>
     );
   } else {
     return (
@@ -66,6 +69,7 @@ const Detail = (props) => {
             </div>
           </div>
         </div>
+        {/* <CustomFooter /> */}
       </Layout>
     );
   }

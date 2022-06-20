@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-import Lottie from "lottie-react";
+import { useDispatch } from "react-redux";
+import { useFetchGet } from "../utils/customHooks";
+// import CustomFooter from "../components/Footer";
 import axios from "axios";
 
+import { reduxAction } from "../utils/redux/actions/action";
 import { withRouter } from "../utils/navigation"; // Import tanpa Default
 import { Card } from "../components/Card"; // Import tanpa Default
 import { Layout } from "../components/Layout"; // Import tanpa Default
 
-import CinemaLoading from "../assets/animations/loading_anm.json";
-// import quMovie from "../assets/image/qu_movie_red.png";
+import quMovie from "../assets/image/qu_movie_red.png";
 
 import "../styles/App.css";
 
 const Homepage = (props) => {
+  const dispatch = useDispatch();
+  const movieFav = useFetchGet(`https://api.themoviedb.org/3/movie/now_playing?api_key=29737ad1a86c54f369b7f540ef2296fa&language=en-US&page=1`);
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -55,32 +58,50 @@ const Homepage = (props) => {
       .catch((err) => alert(err.toString()));
   }
 
-  // const handleClickDetail = (item) => {
-  //   const temp = this.state.dataMovie.slice();
-  //   temp.push(item);
-  //   setDataMovie(temp),
-  //     () => {
-  //       // setTitle(item.title);
-  //       this.fetchData();
-  //     };
-  // };
+  function handleSearch(event) {
+    if (event.keyCode === 13) {
+      axios
+        .get(`https://api.themoviedb.org/3/search/movie?api_key=29737ad1a86c54f369b7f540ef2296fa&language=en-US&query=${event.target.value}&page=1&include_adult=false`)
+        .then((res) => {
+          const { results } = res.data;
+          setData(results);
+        })
+        .catch((err) => alert(err.toString()));
+    }
+  }
+
+  function handleFav(item) {
+    const tempLocal = localStorage.getItem("favMovie");
+    if (tempLocal) {
+      const temp = JSON.parse(tempLocal);
+      temp.push(item);
+      localStorage.setItem("favMovie", JSON.stringify(temp));
+      dispatch(reduxAction("SET_FAVOURITES", temp));
+    } else {
+      localStorage.setItem("favMovie", JSON.stringify([item]));
+      dispatch(reduxAction("SET_FAVOURITES", [item]));
+    }
+    alert("Added to Favourites");
+  }
 
   if (loading) {
     return (
-      <div className="flex flex-col justify-center h-full">
-        <Lottie loop autoplay animationData={CinemaLoading} className="w-72" />
+      <div className="flex justify-center content-center">
+        {/* <div className=""> */}
+        <img src={quMovie} alt="" className="w-1/4 animate-pulse" />
       </div>
+      // </div>
     );
   } else {
     return (
-      <Layout>
+      <Layout onKeyDown={(event) => handleSearch(event)}>
         <div className=" pl-10 pr-10 sm:pl-20 sm:pr-20 mt-10">
           {/* <div className="flex justify-around mb-10 ">
             <img src={quMovie} alt="" className="w-1/4" /> <h1>QuMovie</h1>
           </div> */}
           <div className="grid grid-flow-row auto-rows-max grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 m-2 gap-4">
             {data.map((item) => (
-              <Card key={item.id} titleItem={item.title} imageItem={item.poster_path} onClickItem={() => navigate(`/movie/${item.id}`)} />
+              <Card key={item.id} titleItem={item.title} imageItem={item.poster_path} onClickItem={() => navigate(`/movie/${item.id}`)} onClickFav={() => handleFav(item)} item={item} />
             ))}
           </div>
           <div className="flex justify-center">
@@ -89,6 +110,7 @@ const Homepage = (props) => {
             </button>
           </div>
         </div>
+        {/* <CustomFooter /> */}
       </Layout>
     );
   }
