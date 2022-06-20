@@ -7,6 +7,7 @@ import { reduxAction } from "../utils/redux/actions/action";
 import Favourite from "../pages/Favourites";
 import Homepage from "../pages/Homepage";
 import Detail from "../pages/Detail";
+import Upcoming from "../pages/Upcoming";
 
 const RoutesApp = (props) => {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ const RoutesApp = (props) => {
           <Route path="/" element={<Homepage />} />
           <Route path="/movie/:movie_id" element={<Detail />} />
           <Route path="/favourites" element={<Favourite />} />
+          <Route path="/upcoming" element={<Upcoming />} />
           <Route
             path="*"
             element={

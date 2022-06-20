@@ -30,6 +30,9 @@ const CustomHeader = (props) => {
             <Link to="/favourites" className="ml-4 mr-4">
               <p className="font-semibold dark:text-red-50 hover:text-red-700">FAVOURITES</p>
             </Link>
+            <Link to="/upcoming" className="ml-4 mr-4">
+              <p className="font-semibold dark:text-red-50 hover:text-red-700">UPCOMING</p>
+            </Link>
           </div>
         </div>
         <div className="flex self-center ml-6 mr-4">
@@ -48,7 +51,7 @@ const CustomHeader = (props) => {
           </label>
         </div>
         <div className="flex self-center ml-4">
-          {theme === "dark" ? <FaSun className="w-6 h-6 cursor-pointer text-red-50" onClick={() => handleThemeChange("light")} /> : <FaMoon className="w-6 h-6 cursor-pointer" onClick={() => handleThemeChange("dark")} />}
+          {theme === "dark" ? <FaSun className="w-6 h-6 cursor-pointer text-red-50" onClick={() => handleThemeChange("light")} /> : <FaMoon className="w-6 h-6 cursor-pointer hover:text-red-700" onClick={() => handleThemeChange("dark")} />}
         </div>
       </Tabs>
     </Box>
