@@ -16,7 +16,7 @@ import "../styles/App.css";
 
 const Homepage = (props) => {
   const dispatch = useDispatch();
-  const movieFav = useFetchGet(`https://api.themoviedb.org/3/movie/now_playing?api_key=29737ad1a86c54f369b7f540ef2296fa&language=en-US&page=1`);
+  // const movieFav = useFetchGet(`https://api.themoviedb.org/3/movie/now_playing?api_key=29737ad1a86c54f369b7f540ef2296fa&language=en-US&page=1`);
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -74,14 +74,19 @@ const Homepage = (props) => {
     const tempLocal = localStorage.getItem("favMovie");
     if (tempLocal) {
       const temp = JSON.parse(tempLocal);
-      temp.push(item);
-      localStorage.setItem("favMovie", JSON.stringify(temp));
-      dispatch(reduxAction("SET_FAVOURITES", temp));
+      if (temp.find((x) => x.id === item.id)) {
+        alert("The Movies is Already");
+      } else {
+        temp.push(item);
+        localStorage.setItem("favMovie", JSON.stringify(temp));
+        dispatch(reduxAction("SET_FAVOURITES", temp));
+        alert("Added to Favourites");
+      }
     } else {
       localStorage.setItem("favMovie", JSON.stringify([item]));
       dispatch(reduxAction("SET_FAVOURITES", [item]));
+      alert("Added to Favourites");
     }
-    alert("Added to Favourites");
   }
 
   if (loading) {
