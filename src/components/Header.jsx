@@ -32,6 +32,21 @@ const CustomHeader = (props) => {
             </Link>
           </div>
         </div>
+        <div className="flex self-center ml-6 mr-4">
+          <label className="relative block">
+            <span className="sr-only">Search</span>
+            <span className="absolute inset-y-0 left-0 flex item-center">
+              <svg className="h-4 w-4 fill-gray-50" viewBox="0 0 20 20"></svg>
+            </span>
+            <input
+              className="placeholder:italic dark:text-black placeholder:text-neutral-500 bg-gray-100 w-full border border-neutral-400 focus:outline-none focus:border-neutral-500 focus:ring-neutral-500 py-1 pl-4 pr-2"
+              placeholder="Search Movie.."
+              type="text"
+              name="search"
+              onKeyDown={props.onKeyDown}
+            />
+          </label>
+        </div>
         <div className="flex self-center ml-4">
           {theme === "dark" ? <FaSun className="w-6 h-6 cursor-pointer text-red-50" onClick={() => handleThemeChange("light")} /> : <FaMoon className="w-6 h-6 cursor-pointer" onClick={() => handleThemeChange("dark")} />}
         </div>
