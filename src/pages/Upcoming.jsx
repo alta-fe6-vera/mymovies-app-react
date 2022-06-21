@@ -88,18 +88,16 @@ const Upcoming = (props) => {
   if (loading) {
     return (
       <div className="flex justify-center content-center">
-        {/* <div className=""> */}
-        <img src={quMovie} alt="" className="w-1/4 animate-pulse" />
+        <div className="flex flex-col h-screen justify-center ">
+          <img src={quMovie} alt="" className="w-full animate-pulse" />
+        </div>
       </div>
-      // </div>
     );
   } else {
     return (
       <Layout onKeyDown={(event) => handleSearch(event)}>
         <div className=" pl-10 pr-10 sm:pl-20 sm:pr-20 mt-10">
-          {/* <div className="flex justify-around mb-10 ">
-            <img src={quMovie} alt="" className="w-1/4" /> <h1>QuMovie</h1>
-          </div> */}
+          <div className="flex justify-around mb-10 text-black dark:text-red-50 text-2xl lg:text-4xl">Upcoming Movies</div>
           <div className="grid grid-flow-row auto-rows-max grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 m-2 gap-4">
             {data.map((item) => (
               <Card key={item.id} titleItem={item.title} imageItem={item.poster_path} onClickItem={() => navigate(`/movie/${item.id}`)} onClickFav={() => handleFav(item)} item={item} />

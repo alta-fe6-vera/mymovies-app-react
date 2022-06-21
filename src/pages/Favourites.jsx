@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { withRouter } from "../utils/navigation"; // Import tanpa Default
@@ -13,6 +13,7 @@ const Favourites = (props) => {
   return (
     <Layout>
       <div className=" pl-10 pr-10 sm:pl-20 sm:pr-20 mt-10">
+        <div className="flex justify-around mb-10 text-black dark:text-red-50 text-2xl lg:text-4xl">Favourites Movies</div>
         <div className="grid grid-flow-row auto-rows-max grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 m-2 gap-4">
           {favourites.map((item) => (
             <CardFav key={item.id} titleItem={item.title} imageItem={item.poster_path} onClickItem={() => navigate(`/movie/${item.id}`)} />
