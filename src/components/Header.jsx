@@ -16,7 +16,7 @@ const CustomHeader = (props) => {
   };
 
   return (
-    <Box className="sticky top-0 w-full drop-shadow bg-gray-50 dark:bg-red-900 flex justify-center">
+    <Box className="sticky top-0 z-10 w-full drop-shadow bg-gray-50 dark:bg-red-900 flex justify-center">
       <Tabs variant="scrollable" scrollButtons allowScrollButtonsMobile aria-label="scrollable force tabs example" className="dark:text-red-50">
         <div className="flex space-x-4">
           <Link to="/" className="flex">

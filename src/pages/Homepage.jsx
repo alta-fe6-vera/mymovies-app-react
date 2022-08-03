@@ -26,10 +26,11 @@ const Homepage = (props) => {
 
   function fetchMoviePlay() {
     axios
-      .get("https://api.themoviedb.org/3/movie/now_playing?api_key=29737ad1a86c54f369b7f540ef2296fa&language=en-US&page=1")
+      .get(`https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1`)
       .then((res) => {
         const { results } = res.data;
         setData(results);
+        console.log(results);
       })
       .catch((err) => alert(err.toString()))
       .finally(() => setLoading(false));
@@ -44,7 +45,7 @@ const Homepage = (props) => {
     };
 
     const newPage = page + 1;
-    fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=29737ad1a86c54f369b7f540ef2296fa&language=en-US&page=${page}`, requestOptions)
+    fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         const { results } = res;
@@ -59,7 +60,7 @@ const Homepage = (props) => {
   function handleSearch(event) {
     if (event.keyCode === 13) {
       axios
-        .get(`https://api.themoviedb.org/3/search/movie?api_key=29737ad1a86c54f369b7f540ef2296fa&language=en-US&query=${event.target.value}&page=1&include_adult=false`)
+        .get(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=${event.target.value}&page=1&include_adult=false`)
         .then((res) => {
           const { results } = res.data;
           setData(results);

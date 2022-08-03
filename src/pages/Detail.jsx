@@ -26,7 +26,7 @@ const Detail = (props) => {
   const fetchMovieDetail = () => {
     const { movie_id } = props.params;
     axios
-      .get(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=29737ad1a86c54f369b7f540ef2296fa&language=en-US&append_to_response=videos`)
+      .get(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&append_to_response=videos`)
       .then((res) => {
         const { data } = res;
         setData(data);
