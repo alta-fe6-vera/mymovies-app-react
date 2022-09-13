@@ -65,8 +65,11 @@ This project deployed in Vercel: https://mymovie-vera.vercel.app/
 <br>
 <br>
 
-- Home
+- Home - Light Mode
   <img src="https://drive.google.com/uc?export=view&id=1fAR1R6fxc7481-LquuIvf3gGnLxaCFML" alt="QuMovie"/>
+
+- Home - Dark Mode
+  <img src="https://drive.google.com/uc?export=view&id=1567gmKtp2ck0uz6zA0xdYhMR7ee_vngo" alt="QuMovie"/>
 
 - Details
   <img src="https://drive.google.com/uc?export=view&id=1wJuJcaNE4lOEArBpfqgPyku01S6HpAEF" alt="QuMovie"/>
